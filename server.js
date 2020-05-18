@@ -1,6 +1,7 @@
 // Node Modules
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const goodreads = require('goodreads-api-node');
 
@@ -18,21 +19,39 @@ app.use(express.static('public'));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
+
 // *** GET Routes - display pages ***
 
 // Root Route
 app.get('/', function (req, res) {
+    res.render('pages/index');
+});
+
+// *** POST Routes ***
+
+// Root Route
+
+app.post('/search', function (req, res) {
+    var bookquery = req.body.book;
+    console.log(bookquery);
     var book = gr.searchBooks({
-        q: 'A song of ice and fire',
+        q: bookquery,
         page: 1,
         field: 'title'
     });
     book.then(function (result) {
+        console.log(result);
         var bookresult = result.search.results.work;
-        res.render('pages/index', {
+        res.render('pages/search-results', {
             bookresult: bookresult
         });
     });
 });
+
 app.listen(8080);
 console.log('Listening on 8080');
