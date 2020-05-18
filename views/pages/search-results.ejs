@@ -15,9 +15,11 @@
         <ul>
             <% bookresult.forEach(function(book) { %>
             <li>
-                <%= book.average_rating %> -
-                <%= book.original_publication_year._ %>
-            </li>
+                Title: <%= book.best_book.title %> -
+                Author: <%= book.best_book.author.name %> -
+                Publication Year: <%= book.original_publication_year._ %> -
+                <img src="<%= book.best_book.image_url %>">
+                Average Rating: <%= book.average_rating %> </li>
             <% }); %>
         </ul>
 
