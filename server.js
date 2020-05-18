@@ -28,8 +28,7 @@ app.get('/', function (req, res) {
         field: 'title'
     });
     book.then(function (result) {
-        var bookresult = JSON.stringify(result.search.results.work);
-        console.log(bookresult);
+        var bookresult = result.search.results.work;
         res.render('pages/index', {
             bookresult: bookresult
         });
