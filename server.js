@@ -22,10 +22,18 @@ app.set('view engine', 'ejs');
 
 // Root Route
 app.get('/', function (req, res) {
-    gr.getBooksByAuthor('175417')
-        .then(console.log);
-    res.render("pages/index");
+    var book = gr.searchBooks({
+        q: 'A song of ice and fire',
+        page: 1,
+        field: 'title'
+    });
+    book.then(function (result) {
+        var bookresult = JSON.stringify(result.search.results.work);
+        console.log(bookresult);
+        res.render('pages/index', {
+            bookresult: bookresult
+        });
+    });
 });
-
 app.listen(8080);
 console.log('Listening on 8080');
