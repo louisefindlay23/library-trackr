@@ -11,11 +11,10 @@
     </header>
 
     <main>
-        <% bookresult.forEach(function(book) { %>
-        <a href="/book">
-            <img id="<%= book.best_book.id._ %>" class="book-result" src="<%= book.best_book.image_url %>">
-            <% }); %>
-        </a>
+        <h3><%= bookdetails.title %></h3>
+        <img src="<%= bookdetails.image_url %>">
+        <h3><%= bookdetails.publication_year %></h3>
+        <p><%= bookdetails.description %></p>
     </main>
 
     <footer>

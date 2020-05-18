@@ -39,16 +39,27 @@ app.get('/', function (req, res) {
 app.post('/search', function (req, res) {
     var bookquery = req.body.book;
     console.log(bookquery);
-    var book = gr.searchBooks({
+    var booklist = gr.searchBooks({
         q: bookquery,
         page: 1,
         field: 'title'
     });
-    book.then(function (result) {
+    booklist.then(function (result) {
         console.log(result);
         var bookresult = result.search.results.work;
         res.render('pages/search-results', {
             bookresult: bookresult
+        });
+    });
+});
+
+app.get('/book', function (req, res) {
+    var bookid = gr.showBook('256683');
+    bookid.then(function (result) {
+        var bookdetails = result.book;
+        console.log(bookdetails);
+        res.render('pages/book', {
+            bookdetails: bookdetails
         });
     });
 });

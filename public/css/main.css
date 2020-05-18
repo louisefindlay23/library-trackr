@@ -1,0 +1,33 @@
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header,
+footer {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    background: #fae1af;
+}
+
+main {
+    margin: 5% 0;
+}
+
+h1,
+footer p {
+    color: #000000;
+    text-align: center;
+}
+
+footer p {
+    font-weight: bold;
+}
+
+.book-result {
+    width: 98px;
+    height: 148px;
+}
