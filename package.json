@@ -1,0 +1,24 @@
+{
+  "name": "library-trackr",
+  "version": "1.0.0",
+  "description": "Library Trackr is a NodeJS web app that aims to combine features of both Calibre Web and the iOS app, Book Track.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louisefindlay23/library-trackr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/louisefindlay23/library-trackr/issues"
+  },
+  "homepage": "https://github.com/louisefindlay23/library-trackr#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  }
+}
