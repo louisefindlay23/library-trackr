@@ -38,7 +38,6 @@ app.get('/', function (req, res) {
 
 app.post('/search', function (req, res) {
     var bookquery = req.body.book;
-    console.log(bookquery);
     var booklist = gr.searchBooks({
         q: bookquery,
         page: 1,
@@ -54,7 +53,7 @@ app.post('/search', function (req, res) {
 });
 
 app.get('/book', function (req, res) {
-    var bookid = gr.showBook('256683');
+    var bookid = gr.showBook(req.query.id);
     bookid.then(function (result) {
         var bookdetails = result.book;
         console.log(bookdetails);
