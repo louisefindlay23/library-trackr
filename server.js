@@ -1,9 +1,16 @@
+// Database Connections
+
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017/booksdb";
+
+
 // Node Modules
 const express = require('express');
-const app = express();
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const goodreads = require('goodreads-api-node');
+const app = express();
 
 // Goodreads API - NodeJS
 
@@ -24,6 +31,25 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+app.use(session({
+    secret: 'truth will',
+    resave: true,
+    saveUninitialized: true
+}));
+
+var db;
+
+// connecting variable db to database
+MongoClient.connect(url, function (err, database) {
+    if (err) throw err;
+    db = database;
+    app.listen(8080);
+    console.log('Listening on 8080');
+});
+
+// set default session.loggedin value
+session.loggedin = false;
 
 // *** GET Routes - display pages ***
 
