@@ -12,8 +12,8 @@
 
     <main>
         <% bookresult.forEach(function(book) { %>
-        <a href="/book">
-            <img id="<%= book.best_book.id._ %>" class="book-result" src="<%= book.best_book.image_url %>">
+        <a id="<%= book.best_book.id._ %>" href="/book">
+            <img class="book-result" src="<%= book.best_book.image_url %>">
             <% }); %>
         </a>
     </main>
