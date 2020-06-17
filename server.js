@@ -223,6 +223,3 @@ app.post('/login-user', function (req, res) {
         }
     });
 });
-
-app.listen(8080);
-console.log('Listening on 8080');
