@@ -23,6 +23,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "goodreads-api-node": "0.0.10",
-    "mongodb": "^2.2.33"
+    "mongodb": "^2.2.33",
+    "passport": "^0.4.1",
+    "passport-goodreads": "^1.0.0"
   }
 }
