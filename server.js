@@ -146,6 +146,19 @@ app.get("/authenticate", function (req, res) {
         });
 });
 
+app.get('/request', function (req, res) {
+    gr.getAccessToken()
+        .then(() => {
+            /* you can now make authenticated requests */
+            console.log(req.user.id);
+            gr.getUserFollowings(req.user.id)
+                .then(console.log);
+        }).catch(function () {
+            console.log("Promise Rejected");
+        });
+    res.render('pages/index', {});
+});
+
 // Goodreads Login
 
 app.get('/auth/goodreads',
@@ -157,9 +170,13 @@ app.get('/auth/goodreads/callback',
         failureRedirect: '/login'
     }),
     function (req, res) {
-        res.redirect('/');
+        // res.redirect('/request');
+        console.log(req.user);
+        console.log(req.user.id);
+        res.render('pages/index', {
+            user: req.user
+        });
     });
-
 
 // *** POST Routes ***
 
