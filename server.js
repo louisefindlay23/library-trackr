@@ -1,7 +1,7 @@
 // Database Connections
 
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/booksdb";
+const dbUrl = "mongodb://localhost:27017/booksdb";
 
 
 // Node Modules
@@ -19,7 +19,8 @@ const myCredentials = {
     secret: ' xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI'
 };
 
-const gr = goodreads(myCredentials);
+var callbackURL = "http://127.0.0.1/goodreads";
+const gr = goodreads(myCredentials, callbackURL);
 
 // Initalising Express
 app.use(express.static('public'));
@@ -41,7 +42,7 @@ app.use(session({
 var db;
 
 // connecting variable db to database
-MongoClient.connect(url, function (err, database) {
+MongoClient.connect(dbUrl, function (err, database) {
     if (err) throw err;
     db = database;
     app.listen(8080);
@@ -88,6 +89,18 @@ app.get('/login', function (req, res) {
         login_error: msg,
         isLoggedIn: isLogged
     });
+});
+
+// Authenticate Goodreads
+
+app.get("/authenticate", function (req, res) {
+    gr.getRequestToken()
+        .then(url => {
+            console.log(url);
+            res.redirect(url);
+        }).catch(function () {
+            console.log("Promise Rejected");
+        });
 });
 
 // *** POST Routes ***
