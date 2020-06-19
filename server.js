@@ -10,12 +10,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const goodreads = require('goodreads-api-node');
-const passport = require('passport');
-const GoodreadsStrategy = require('passport-goodreads').Strategy;
 const app = express();
-app.use(passport.initialize());
 
-// Goodreads API
+// Goodreads API - NodeJS
 
 const myCredentials = {
     key: 'LDomy4VKhZXCrcE3rJ8TQ',
@@ -23,22 +20,6 @@ const myCredentials = {
 };
 
 const gr = goodreads(myCredentials);
-
-// Goodreads Login
-
-passport.use(new GoodreadsStrategy({
-        consumerKey: "LDomy4VKhZXCrcE3rJ8TQ",
-        consumerSecret: "xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI",
-        callbackURL: "http://localhost:8080/auth/goodreads/callback"
-    },
-    function (token, tokenSecret, profile, done) {
-        User.findOrCreate({
-            goodreadsId: profile.id
-        }, function (err, user) {
-            return done(err, user);
-        });
-    }
-));
 
 // Initalising Express
 app.use(express.static('public'));
@@ -63,7 +44,7 @@ var db;
 MongoClient.connect(url, function (err, database) {
     if (err) throw err;
     db = database;
-    app.listen(8080, 'localhost');
+    app.listen(8080);
     console.log('Listening on 8080');
 });
 
@@ -108,18 +89,6 @@ app.get('/login', function (req, res) {
         isLoggedIn: isLogged
     });
 });
-
-app.get('/auth/goodreads',
-    passport.authenticate('goodreads'));
-
-app.get('/auth/goodreads/callback',
-    passport.authenticate('goodreads', {
-        failureRedirect: '/login'
-    }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
 
 // *** POST Routes ***
 
