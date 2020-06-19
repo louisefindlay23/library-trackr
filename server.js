@@ -1,22 +1,21 @@
 // Database Connections
-
 const MongoClient = require('mongodb').MongoClient;
 const dbUrl = "mongodb://localhost:27017/booksdb";
-
 
 // Node Modules
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+require('dotenv').config();
 const goodreads = require('goodreads-api-node');
 const app = express();
 
 // Goodreads API - NodeJS
 
 const myCredentials = {
-    key: 'LDomy4VKhZXCrcE3rJ8TQ',
-    secret: 'xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI'
+    key: process.env.GOODREADS_KEY,
+    secret: process.env.GOODREADS_SECRET
 };
 
 var callbackURL = "http://127.0.0.1/goodreads";
