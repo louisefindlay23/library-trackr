@@ -3,6 +3,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/booksdb";
 
+
 // Node Modules
 const express = require('express');
 const session = require('express-session');
@@ -11,49 +12,30 @@ const ejs = require('ejs');
 const goodreads = require('goodreads-api-node');
 const passport = require('passport');
 const GoodreadsStrategy = require('passport-goodreads').Strategy;
-const util = require('util');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const methodOverride = require('method-override');
 const app = express();
+app.use(passport.initialize());
 
 // Goodreads API
 
-var GOODREADS_KEY = "LDomy4VKhZXCrcE3rJ8TQ";
-var GOODREADS_SECRET = "xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI";
-
 const myCredentials = {
-    key: GOODREADS_KEY,
-    secret: GOODREADS_SECRET
+    key: 'LDomy4VKhZXCrcE3rJ8TQ',
+    secret: ' xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI'
 };
 
-var callbackURL = "http://127.0.0.1/goodreads";
-const gr = goodreads(myCredentials, callbackURL);
+const gr = goodreads(myCredentials);
 
-// Passport Session
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-});
-
-// Goodreads Passport
+// Goodreads Login
 
 passport.use(new GoodreadsStrategy({
-        consumerKey: GOODREADS_KEY,
-        consumerSecret: GOODREADS_SECRET,
+        consumerKey: "LDomy4VKhZXCrcE3rJ8TQ",
+        consumerSecret: "xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI",
         callbackURL: "http://localhost:8080/auth/goodreads/callback"
     },
     function (token, tokenSecret, profile, done) {
-        // asynchronous verification, for effect...
-        process.nextTick(function () {
-            return done(null, profile);
+        User.findOrCreate({
+            goodreadsId: profile.id
+        }, function (err, user) {
+            return done(err, user);
         });
     }
 ));
@@ -66,6 +48,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 
 app.use(session({
@@ -73,11 +56,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-
-app.use(logger('tiny'));
-app.use(cookieParser());
-app.use(bodyParser.raw());
-app.use(methodOverride());
 
 var db;
 
@@ -96,10 +74,7 @@ session.loggedin = false;
 
 // Root Route
 app.get('/', function (req, res) {
-    console.log(req.user);
-    res.render('pages/index', {
-        user: req.user
-    });
+    res.render('pages/index');
 });
 
 // Single Book Route
@@ -134,32 +109,17 @@ app.get('/login', function (req, res) {
     });
 });
 
-// Goodreads Authentication
-
-app.get("/authenticate", function (req, res) {
-    gr.getRequestToken()
-        .then(url => {
-            console.log(url);
-            res.redirect(url);
-        }).catch(function () {
-            console.log("Promise Rejected");
-        });
-});
-
-// Goodreads Login
-
 app.get('/auth/goodreads',
-    passport.authenticate('goodreads'),
-    function (req, res) {});
+    passport.authenticate('goodreads'));
 
 app.get('/auth/goodreads/callback',
     passport.authenticate('goodreads', {
         failureRedirect: '/login'
     }),
     function (req, res) {
+        // Successful authentication, redirect home.
         res.redirect('/');
     });
-
 
 // *** POST Routes ***
 
