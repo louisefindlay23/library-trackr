@@ -104,6 +104,28 @@ app.get("/authenticate", function (req, res) {
         });
 });
 
+// Request Goodreads
+
+app.get("/authenticate", function (req, res) {
+    gr.getRequestToken()
+        .then(url => {
+            console.log(url);
+            res.redirect(url);
+        }).catch(function () {
+            console.log("Promise Rejected");
+        });
+});
+
+app.get("/goodreads", function (req, res) {
+    gr.getAccessToken()
+        .then(url => {
+            console.log(url);
+            res.redirect("/");
+        }).catch(function () {
+            console.log("Promise Rejected");
+        });
+});
+
 // *** POST Routes ***
 
 // Search Route
