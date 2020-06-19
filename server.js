@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 require('dotenv').config();
 const goodreads = require('goodreads-api-node');
-const app = express();
+const app = require("https-localhost")();
 
 // Goodreads API - NodeJS
 
@@ -18,7 +18,7 @@ const myCredentials = {
     secret: process.env.GOODREADS_SECRET
 };
 
-var callbackURL = "http://127.0.0.1/goodreads";
+var callbackURL = "https://localhost:8080/goodreads";
 const gr = goodreads(myCredentials);
 gr.initOAuth(callbackURL);
 
@@ -105,21 +105,14 @@ app.get("/authenticate", function (req, res) {
 
 // Request Goodreads
 
-app.get("/authenticate", function (req, res) {
-    gr.getRequestToken()
-        .then(url => {
-            console.log(url);
-            res.redirect(url);
-        }).catch(function () {
-            console.log("Promise Rejected");
-        });
-});
-
 app.get("/goodreads", function (req, res) {
     gr.getAccessToken()
         .then(url => {
-            console.log(url);
-            res.redirect("/");
+            var userinfo = gr.getCurrentUserInfo();
+            userinfo.then(function (result) {
+                console.log(userinfo);
+                res.redirect("/");
+            });
         }).catch(function () {
             console.log("Promise Rejected");
         });
