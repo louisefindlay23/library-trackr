@@ -9,7 +9,7 @@ const app = express();
 
 const myCredentials = {
     key: 'LDomy4VKhZXCrcE3rJ8TQ',
-    secret: ' xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI'
+    secret: 'xCaCeVJvD5G7mbfu7FgEg0nyzFKl6WK63ph4CGLQuI'
 };
 
 var callbackURL = "http://127.0.0.1/goodreads";
