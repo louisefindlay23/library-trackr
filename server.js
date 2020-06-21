@@ -110,7 +110,7 @@ app.get("/goodreads", function (req, res) {
         .then(url => {
             var userinfo = gr.getCurrentUserInfo();
             userinfo.then(function (result) {
-                console.log(userinfo);
+                console.log("User ID:" + result.user.id);
                 res.redirect("/");
             });
         }).catch(function () {
