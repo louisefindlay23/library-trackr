@@ -40,6 +40,7 @@ console.log('Listening on 8080');
 
 // set default session.loggedin value
 session.loggedin = false;
+var userid = null;
 
 // *** GET Routes - display pages ***
 
@@ -61,7 +62,6 @@ app.get('/book', function (req, res) {
 });
 
 // Authenticate Goodreads
-
 app.get("/authenticate", function (req, res) {
     gr.getRequestToken()
         .then(url => {
@@ -73,18 +73,33 @@ app.get("/authenticate", function (req, res) {
 });
 
 // Request Goodreads
-
 app.get("/goodreads", function (req, res) {
     gr.getAccessToken()
         .then(url => {
             var userinfo = gr.getCurrentUserInfo();
             userinfo.then(function (result) {
-                console.log("User ID:" + result.user.id);
+                userid = result.user.id;
+                console.log("User ID:" + userid);
                 res.redirect("/");
             });
         }).catch(function () {
             console.log("Promise Rejected");
         });
+});
+
+// Profile Route
+app.get('/profile', function (req, res) {
+    var usersbooks = gr.getOwnedBooks({
+        userID: userid,
+        page: 1
+    });
+    usersbooks.then(function (result) {
+        var userbooklist = result.owned_books.owned_book;
+        console.log(userbooklist);
+        res.render('pages/profile', {
+            userbooklist: userbooklist
+        });
+    });
 });
 
 // *** POST Routes ***
