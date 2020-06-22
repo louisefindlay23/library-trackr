@@ -95,7 +95,6 @@ app.get('/profile', function (req, res) {
     });
     usersbooks.then(function (result) {
         var userbooklist = result.owned_books.owned_book;
-        console.log(userbooklist);
         res.render('pages/profile', {
             userbooklist: userbooklist
         });
