@@ -68,7 +68,7 @@ app.get("/authenticate", function (req, res) {
             console.log(url);
             res.redirect(url);
         }).catch(function () {
-            console.log("Promise Rejected");
+            console.log("Goodreads Authentication Rejected");
         });
 });
 
@@ -83,7 +83,7 @@ app.get("/goodreads", function (req, res) {
                 res.redirect("/");
             });
         }).catch(function () {
-            console.log("Promise Rejected");
+            console.log("Goodreads User Info Rejected");
         });
 });
 
@@ -95,9 +95,20 @@ app.get('/profile', function (req, res) {
     });
     usersbooks.then(function (result) {
         var userbooklist = result.owned_books.owned_book;
-        res.render('pages/profile', {
-            userbooklist: userbooklist
-        });
+    }).catch(function () {
+        console.log("Goodreads Get Owned Books Rejected");
+    });
+    var usersshelves = gr.getUsersShelves({
+        userID: userid
+    });
+    usersshelves.then(function (result) {
+        console.log(result);
+    }).catch(function () {
+        console.log("Goodreads Get Shelves Rejected");
+    });
+
+    res.render('pages/profile', {
+        //userbooklist: userbooklist
     });
 });
 
