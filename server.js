@@ -87,6 +87,11 @@ app.get("/goodreads", function (req, res) {
         });
 });
 
+// Profile Configuration Route
+app.get('/configure-profile', function (req, res) {
+    res.render('pages/profile-config');
+});
+
 // Profile Route
 app.get('/profile', function (req, res) {
     var usersbooks = gr.getOwnedBooks({
@@ -98,13 +103,12 @@ app.get('/profile', function (req, res) {
     }).catch(function () {
         console.log("Goodreads Get Owned Books Rejected");
     });
-    var usersshelves = gr.getUsersShelves({
-        userID: userid
-    });
+    var usersshelves = gr.getUsersShelves(userid);
     usersshelves.then(function (result) {
         console.log(result);
     }).catch(function () {
         console.log("Goodreads Get Shelves Rejected");
+        console.log(usersshelves);
     });
 
     res.render('pages/profile', {
