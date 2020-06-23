@@ -89,7 +89,17 @@ app.get("/goodreads", function (req, res) {
 
 // Profile Configuration Route
 app.get('/configure-profile', function (req, res) {
-    res.render('pages/profile-config');
+    var usersshelves = gr.getUsersShelves(userid);
+    usersshelves.then(function (result) {
+        var usershelf = result.user_shelf;
+        console.log(usershelf);
+        res.render('pages/profile-config', {
+            usershelf: usershelf
+        });
+    }).catch(function () {
+        console.log("Goodreads Get Shelves Rejected");
+        console.log(usersshelves);
+    });
 });
 
 // Profile Route
@@ -100,19 +110,11 @@ app.get('/profile', function (req, res) {
     });
     usersbooks.then(function (result) {
         var userbooklist = result.owned_books.owned_book;
+        res.render('pages/profile', {
+            userbooklist: userbooklist
+        });
     }).catch(function () {
         console.log("Goodreads Get Owned Books Rejected");
-    });
-    var usersshelves = gr.getUsersShelves(userid);
-    usersshelves.then(function (result) {
-        console.log(result);
-    }).catch(function () {
-        console.log("Goodreads Get Shelves Rejected");
-        console.log(usersshelves);
-    });
-
-    res.render('pages/profile', {
-        //userbooklist: userbooklist
     });
 });
 
