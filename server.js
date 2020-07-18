@@ -22,7 +22,7 @@ var callbackURL = "https://localhost:8080/goodreads";
 const gr = goodreads(myCredentials);
 gr.initOAuth(callbackURL);
 
-// Initalising Express
+// Initialising Express
 app.use(express.static('public'));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
