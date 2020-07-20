@@ -20,9 +20,14 @@ View Owned Books on your Profile
 
 ## Planned Features
 
-Improve the UI - In Progress
-Shelf Configuration - In Progress
-Profile Page - In Progress
+Improve UI - **In Progress**
+
+Shelf Configuration - **In Progress**
+
+Profile Page - **In Progress**
+
 Tagging System
+
 Link to Other eReader apps
+
 Store links/upload public domain books - Potential
