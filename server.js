@@ -129,8 +129,8 @@ app.post('/search', function (req, res) {
         field: 'title'
     });
     booklist.then(function (result) {
-        console.log(result);
         var bookresult = result.search.results.work;
+        console.log(bookresult);
         res.render('pages/search-results', {
             bookresult: bookresult
         });
