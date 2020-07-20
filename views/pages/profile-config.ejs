@@ -12,7 +12,7 @@
 
     <main>
         <h2>Shelf Configuration</h2>
-        <p>Pick your owned books shelf or create a new one</p>
+        <p class="text-center">Pick your owned books shelf or create a new one</p>
         <form action="/set-profile" method="post">
         <% for(var i=0; i < usershelf.length; i++) { %>
         <input type="radio" name="<%= usershelf[i].name %>" value="<%= usershelf[i].name %>">

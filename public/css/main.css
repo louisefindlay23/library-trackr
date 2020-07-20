@@ -70,7 +70,7 @@ p {
 }
 
 h1, h2, h3,
-footer p {
+footer p, .text-center {
     color: #000000;
     text-align: center;
 }
