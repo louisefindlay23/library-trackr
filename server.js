@@ -49,7 +49,9 @@ app.get('/book', function (req, res) {
         res.render('pages/book', {
             bookdetails: bookdetails
         });
-    });
+    }).catch(function () {
+            console.log("Book Search Rejected");
+        });
 });
 
 // Authenticate Goodreads
