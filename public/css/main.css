@@ -22,6 +22,10 @@ footer {
     background: var(--main-color);
 }
 
+footer {
+    padding: 1% 0;
+}
+
 nav {
     margin: 2.5% 0;
 }
@@ -51,6 +55,18 @@ main {
     flex: 1 0 auto;
     justify-content: center;
     align-items: center;
+}
+
+.flex-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+p {
+    margin: 0 5%;
+    line-height: 140%;
 }
 
 h1,
