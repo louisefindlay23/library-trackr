@@ -127,5 +127,7 @@ app.post('/search', function (req, res) {
         res.render('pages/search-results', {
             bookresult: bookresult
         });
+    }).catch(function () {
+        console.log("Goodreads Search Books Rejected");
     });
 });
