@@ -69,7 +69,7 @@ p {
     line-height: 140%;
 }
 
-h1,
+h1, h2, h3,
 footer p {
     color: #000000;
     text-align: center;
@@ -82,6 +82,7 @@ footer p, nav a {
 .book-result {
     width: 98px;
     height: 148px;
+    margin: 0 10px;
 }
 
 #booksearch {

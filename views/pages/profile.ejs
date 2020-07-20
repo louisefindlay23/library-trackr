@@ -13,11 +13,13 @@
     <main>
         <h2>Profile</h2>
         <h3>Your Owned Books</h3>
-        <% for(var i=0; i < userbooklist.length; i++) { %>
-        <a id="<%= userbooklist[i].book.id._ %>" href="/book">
-            <img class="book-result" src="<%= userbooklist[i].book.image_url %>">
+        <div class="flex-center">
+            <% for(var i=0; i < userbooklist.length; i++) { %>
+            <a id="<%= userbooklist[i].book.id._ %>" href="/book">
+                <img class="book-result" src="<%= userbooklist[i].book.image_url %>">
             <% } %>
-        </a>
+            </a>
+        </div>
     </main>
 
     <footer>
