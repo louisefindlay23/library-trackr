@@ -1,3 +1,7 @@
+:root {
+    --main-color: #ffd633;
+}
+
 html,
 body {
     width: 100%;
@@ -6,17 +10,31 @@ body {
     padding: 0;
 }
 
-body {
+body, input[type=search] {
     display: flex;
     flex-direction: column;
+    font-family: 'Lato', sans-serif;
 }
 
 header,
 footer {
     width: 100%;
-    height: auto;
-    overflow: auto;
-    background: #fae1af;
+    background: var(--main-color);
+}
+
+nav {
+    margin: 2.5% 0;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+a {
+    color: #000000;
 }
 
 footer {
@@ -24,8 +42,12 @@ footer {
 }
 
 main {
+    width: 100%;
+    display: flex;
     margin: 5% 0;
     flex: 1 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 h1,
@@ -34,11 +56,45 @@ footer p {
     text-align: center;
 }
 
-footer p {
+footer p, nav a {
     font-weight: bold;
 }
 
 .book-result {
     width: 98px;
     height: 148px;
+}
+
+#booksearch {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+input[type=search]{
+    width: 50%;
+    border: 3px solid var(--main-color);
+    border-right: none;
+    padding: 10px;
+    height: auto;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #000000;
+}
+
+input[type=search]:focus{
+  color: #000000;
+}
+
+button[type=submit]{
+    width: 40px;
+    height: auto;
+    border: 1px solid var(--main-color);
+    background: var(--main-color);
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
 }

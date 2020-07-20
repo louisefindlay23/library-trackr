@@ -11,17 +11,11 @@
     </header>
 
     <main>
-        <nav>
-            <ul>
-                <li><a href="/authenticate">Login</a></li>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/configure-profile">Configure Profile</a></li>
-            </ul>
-        </nav>
-
-        <form action="/search" method="post">
-            <input type="text" name="book" value="" placeholder="Book Title or Author">
-            <input type="submit">
+        <form id="booksearch" action="/search" method="post">
+            <input type="search" name="book" placeholder="Book Title or Author">
+            <button type="submit">
+            <i class="las la-search"></i>
+            </button>
         </form>
 
     </main>

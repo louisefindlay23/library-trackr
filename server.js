@@ -1,6 +1,5 @@
 // Node Modules
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 require('dotenv').config();
@@ -29,17 +28,9 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.use(session({
-    secret: 'truth will',
-    resave: true,
-    saveUninitialized: true
-}));
-
 app.listen(8080);
 console.log('Listening on 8080');
 
-// set default session.loggedin value
-session.loggedin = false;
 var userid = null;
 
 // *** GET Routes - display pages ***
