@@ -10,7 +10,7 @@
         <%- include('../partials/header') %>
     </header>
 
-    <main>
+    <main class="flex-center">
         <% bookresult.forEach(function(book) { %>
         <a id="<%= book.best_book.id._ %>" href="/book">
             <img class="book-result" src="<%= book.best_book.image_url %>">
