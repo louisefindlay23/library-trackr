@@ -54,6 +54,20 @@ app.get('/book', function (req, res) {
         });
 });
 
+// Add Book Route
+app.get('/book/add', function (req, res) {
+    var addbook = gr.addBookToShelf({
+        bookID: req.query.id,
+        shelfName: "shelf"
+    });
+    addbook.then(function (result) {
+        console.log(result);
+        res.redirect("/");
+    }).catch(function (err) {
+            console.log("Adding book rejected" + err);
+        });
+});
+
 // Authenticate Goodreads
 app.get("/authenticate", function (req, res) {
     gr.getRequestToken()
