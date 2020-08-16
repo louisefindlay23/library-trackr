@@ -58,7 +58,7 @@ app.get('/book', function (req, res) {
 app.get('/book/add', function (req, res) {
     var addbook = gr.addBookToShelf({
         bookID: req.query.id,
-        shelfName: "shelf"
+        shelfName: "read"
     });
     addbook.then(function (result) {
         console.log(result);
